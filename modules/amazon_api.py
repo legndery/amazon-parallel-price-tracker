@@ -11,11 +11,11 @@ from config.amazon_config import (
     set_automation_as_head_less,
 )
 from selenium.common.exceptions import NoSuchElementException
-from modules.resource_manager import ResourceManager
 
 class AmazonAPI:
-    def __init__(self, base_url, currency):
+    def __init__(self, base_url, currency, product_links):
         self.base_url = base_url
+        self.product_links = product_links
         options = get_web_driver_options()
         set_automation_as_head_less(options)
         set_ignore_certificate_error(options)
@@ -25,7 +25,7 @@ class AmazonAPI:
 
     def run(self):
         print("Starting Script...")
-        links = ResourceManager().fetch_product_links()
+        links = self.product_links
         if not links:
             print("Stopped script.")
             return

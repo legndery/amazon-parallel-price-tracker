@@ -1,4 +1,3 @@
-import time
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -46,11 +45,11 @@ class AmazonAPI:
         print(f"Product ID: {asin} - getting data...")
         product_short_url = self.shorten_url(asin)
         self.driver.get(f'{product_short_url}?language=en_GB')
-        time.sleep(2)
+        price = self.get_price()
         title = self.get_title()
         seller = self.get_seller()
-        price = self.get_price()
         merchant = self.get_merchant()
+
         if title and seller and price:
             product_info = {
                 'asin': asin,

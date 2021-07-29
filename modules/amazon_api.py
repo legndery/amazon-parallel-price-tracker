@@ -3,12 +3,9 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from config.amazon_config import (
-    get_web_driver_options,
+from config.config import (
+    ChromeOptionsBuilder,
     get_chrome_web_driver,
-    set_ignore_certificate_error,
-    set_browser_as_incognito,
-    set_automation_as_head_less,
 )
 from selenium.common.exceptions import NoSuchElementException
 
@@ -16,10 +13,7 @@ class AmazonAPI:
     def __init__(self, base_url, currency, product_links):
         self.base_url = base_url
         self.product_links = product_links
-        options = get_web_driver_options()
-        set_automation_as_head_less(options)
-        set_ignore_certificate_error(options)
-        set_browser_as_incognito(options)
+        options = ChromeOptionsBuilder().headless().ignore_certificate_error().browser_as_incognito().build()
         self.driver = get_chrome_web_driver(options)
         self.currency = currency
 

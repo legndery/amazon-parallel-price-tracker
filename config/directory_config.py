@@ -1,4 +1,2 @@
-DIRECTORY_MAP = {
-  "REPORTS": "./reports",
-  "INPUT":"./inputs"
-}
+DIR_REPORTS = "./reports"
+DIR_INPUT= "./inputs"

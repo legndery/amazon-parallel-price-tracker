@@ -1,4 +1,3 @@
-INPUT_DIRECTORY="./inputs"
 import glob
 import os
 import csv
@@ -6,8 +5,8 @@ import csv
 class ResourceManager:
     def __init__(self) -> None:
         pass
-    def fetch_product_links(self):
-        txt_files = glob.glob('./inputs/*.txt')
+    def fetch_product_links(self, directory):
+        txt_files = glob.glob(f'./{directory}/*.txt')
         link_list = []
         for file in txt_files:
             with open(file,'r') as f:
@@ -25,10 +24,10 @@ class ResourceManager:
         print(e)
         return ''
     
-    def write_csv_line(self, filename, product, last_product, header):
+    def write_csv_line(self, filename, product, header, need_to_write_header=False):
         with open(filename, 'a', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=header)
-            if last_product is None:
+            if need_to_write_header:
                 writer.writeheader()
             writer.writerow(product)
 if __name__ == '__main__':

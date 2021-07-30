@@ -1,8 +1,8 @@
-# Amazon Price Tracker - https://youtu.be/64FErcFPbgg (video on YouTube)
-- Get Link to Website with Items
-- Get Items Links
-- Extract Info about Items
+# Amazon Price Tracker
+- User specified prouducts to track
+- Extract Info about Products
 - Generate Report Based on Info
+- Alert on price change (Windows)
 
 ## Initial Setup Instructions
 

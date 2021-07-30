@@ -12,7 +12,7 @@ class AmazonAPI:
     def __init__(self, base_url, currency, product_links):
         self.base_url = base_url
         self.product_links = product_links
-        options = ChromeOptionsBuilder().headless().ignore_certificate_error().browser_as_incognito().build()
+        options = ChromeOptionsBuilder().headless().ignore_certificate_error().browser_as_incognito().loglevel(2).build()
         self.driver = get_chrome_web_driver(options)
         self.currency = currency
 

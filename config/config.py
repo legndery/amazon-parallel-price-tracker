@@ -18,5 +18,8 @@ class ChromeOptionsBuilder:
     def headless(self):
         self.options.add_argument('--headless')
         return self
+    def loglevel(self, level):
+        self.options.add_argument(f'log-level={level}')
+        return self
     def build(self):
         return self.options

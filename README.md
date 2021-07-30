@@ -17,5 +17,5 @@ pip install -r requirements.txt
 ## Running Script
 
 ```buildoutcfg
-python simple_tracker.py
+python start_tracker.py
 ```

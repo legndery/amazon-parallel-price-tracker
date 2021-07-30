@@ -1,5 +1,5 @@
 import asyncio
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, wait
 from modules.resource_manager import ResourceManager
 import time
 from config.config import (
@@ -21,19 +21,16 @@ def manual_cron(interval_time_in_sec, callback):
         print(f"Will sleep {time_to_sleep} seconds")
         time.sleep(time_to_sleep)
 
-def main():
-    resource_manager = ResourceManager()
-    product_links = resource_manager.fetch_product_links(DIR_INPUT)
-    for link in product_links:
-        parellel_worker(link, loop=loop)
-
 def worker(links):
     am = AmazonAPI(BASE_URL, CURRENCY, [links])
     data = am.run()
     GenerateReport(ResourceManager(),DIR_REPORTS, data)
 
-def parellel_worker(url, *, loop):
-    loop.run_in_executor(executor, worker, url)
+def main():
+    resource_manager = ResourceManager()
+    product_links = resource_manager.fetch_product_links(DIR_INPUT)
+    futures = [executor.submit(worker, link) for link in product_links]
+    wait(futures)
 
 if __name__ == '__main__':
     manual_cron(30*60, main)

@@ -1,17 +1,22 @@
 import asyncio
 from concurrent.futures import ProcessPoolExecutor, wait
-from modules.resource_manager import ResourceManager
+from modules.repository.csv_repository import CsvRepository
+from modules.file_manager import FileManager
 import time
 from config.config import (
     CURRENCY,
     BASE_URL,
+    REPORT_FIELDS,
 )
 from config.directory_config import DIR_INPUT, DIR_REPORTS
-from modules.report_generate_csv import GenerateReport
+from modules.report_generator_abstract import ReportGenerator
 from modules.amazon_api import AmazonAPI
+from modules.notification_manager import NotificationManager
+
 
 executor = ProcessPoolExecutor(10)
 loop = asyncio.get_event_loop()
+csv_repository = CsvRepository(REPORT_FIELDS)
 
 def manual_cron(interval_time_in_sec, callback):
     starttime = time.time()
@@ -24,13 +29,12 @@ def manual_cron(interval_time_in_sec, callback):
 def worker(links):
     am = AmazonAPI(BASE_URL, CURRENCY, [links])
     data = am.run()
-    GenerateReport(ResourceManager(),DIR_REPORTS, data)
+    ReportGenerator(csv_repository, data).generate(NotificationManager.FirePriceNotification)
 
 def main():
-    resource_manager = ResourceManager()
-    product_links = resource_manager.fetch_product_links(DIR_INPUT)
+    product_links = FileManager().fetch_product_links(DIR_INPUT)
     futures = [executor.submit(worker, link) for link in product_links]
     wait(futures)
 
 if __name__ == '__main__':
-    manual_cron(30*60, main)
+    manual_cron(60*60, main)

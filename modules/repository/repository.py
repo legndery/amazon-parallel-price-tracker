@@ -5,3 +5,5 @@ class Repository:
     pass
   def append_product(self, product):
     pass
+  def get_price(self, product_id):
+    pass

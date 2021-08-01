@@ -3,8 +3,9 @@
 - Extract Info about Products
 - Generate Report Based on Info
 - Alert on price change (Windows)
+- SQlite, CSV support for the reports
 
-## Initial Setup Instructions
+## Setup Instructions
 
 Make sure to download correct chromedriver - https://chromedriver.chromium.org/downloads
 
@@ -14,8 +15,11 @@ python3 -m venv venv
 . venv/bin/activate
 pip install -r requirements.txt
 ```
+### Put your links in inputs/links.txt
+```
+echo 'https://www.amazon.in/dp/B07YFF3JCN/' >> inputes/links.txt
+```
 ## Running Script
-
 ```buildoutcfg
 python start_tracker.py
 ```

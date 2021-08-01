@@ -44,3 +44,11 @@ class CsvRepository(Repository):
 		if not os.path.isfile(filename):
 			with open(filename, 'w', newline='') as f:
 				csv.DictWriter(f, self.fields).writeheader()
+	def get_price(self, product_id):
+		filename = self.make_file_name(product_id)
+		price = []
+		with open(filename, 'r') as f:
+			reader = csv.DictReader(f, delimiter=',')
+			for row in reader:
+				price.append(row['price'])
+		return price

@@ -47,6 +47,12 @@ class SqlRepository(Repository):
       self.session.commit()
     except Exception as e:
       print(e)
+  def get_price(self, product_id):
+    try:
+      price_list = self.session.query(Report).filter(Report.asin == product_id).order_by(Report.date.asc()).all()
+      return [p.__dict__['price'] for p in price_list]
+    except Exception as e:
+      print(e)
 
 if __name__ == "__main__":
-  SqlRepository(Base).get_last_product('B07YFF3JCN')
+  print(SqlRepository(Base).get_price('B07YFF3JCN'))

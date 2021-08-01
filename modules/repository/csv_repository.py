@@ -1,7 +1,7 @@
 import os, os.path
 import csv
 from modules.repository.repository import Repository
-from config.directory_config import DIR_REPORTS
+from config.directory_config import DIR_REPORTS_CSV
 from io import StringIO
 
 class CsvRepository(Repository):
@@ -31,7 +31,7 @@ class CsvRepository(Repository):
 			return ''
 
 	def make_file_name(self, product_id):
-		return f'{DIR_REPORTS}/{product_id}.csv'
+		return f'{DIR_REPORTS_CSV}/{product_id}.csv'
 
 	def append_product(self, product):
 		filename = self.make_file_name(product["asin"])

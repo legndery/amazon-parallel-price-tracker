@@ -37,7 +37,6 @@ class SqlRepository(Repository):
     ret_val = {}
     if len(product) > 0:
       ret_val = product[0].__dict__
-    print(ret_val)
     return ret_val
   def append_product(self, product):
     product['date'] = datetime.strptime(product['date'], "%d/%m/%Y %H:%M:%S")

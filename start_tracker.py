@@ -8,7 +8,7 @@ from config.config import (
     BASE_URL,
     REPORT_FIELDS,
 )
-from config.directory_config import DIR_INPUT, DIR_REPORTS
+from config.directory_config import DIR_INPUT
 from modules.report_generator_abstract import ReportGenerator
 from modules.amazon_api import AmazonAPI
 from modules.notification_manager import NotificationManager

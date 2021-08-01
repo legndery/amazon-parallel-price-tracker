@@ -1,7 +1,9 @@
 from datetime import datetime
 from modules.repository.repository import Repository
-
+from config.directory_config import DIR_REPORTS_GRAPH
 import matplotlib.pyplot as plt
+import numpy as np
+from textwrap import wrap
 
 class ReportGenerator:
     def __init__(self, repository:Repository, data):
@@ -18,13 +20,24 @@ class ReportGenerator:
             last_product = self.repository.get_last_product(product["asin"])
             cb(last_product, product)
             self.repository.append_product(product)
-            plt.title(product['title'])
-            plt.ylabel('Price in Rs')
-            plt.plot(self.repository.get_price(product["asin"]))
-            plt.grid(True)
-            plt.savefig(f"{product['asin']}.png")
+            self.plot_graph(product)
             print("Done...")
-
-if __name__ == '__main__':
-    from repository.sql_repository import SqlRepository, Base
-    ReportGenerator(SqlRepository(Base), [{"asin":"B07YFF3JCN", "title":"asdf"}]).generate(lambda a,b: print())
+    def plot_graph(self, product):
+        fig, ax = plt.subplots()
+        yplots = self.repository.get_price(product["asin"])
+        xplots = range(len(yplots))
+        ax.plot(xplots, yplots)
+        ax.set_title('\n'.join(wrap(product['title'])))
+        ax.set_ylabel('Price in Rs')
+        ymin, ymax = ax.get_ylim()
+        ax.set_yticks(np.arange(np.floor(ymin), np.floor(ymax), 25))   
+        self.label_point(xplots, yplots, ax)
+        ax.grid(True)
+        plt.savefig(f"{DIR_REPORTS_GRAPH}/{product['asin']}.png")
+    def label_point(self, xplots, yplots, ax):
+        prev_val = None
+        for x,y in zip(xplots, yplots):
+            if prev_val != y:
+                ax.text(x-0.5, y+1, y)  
+                prev_val = y
+        ax.text(x-0.5, y+1, y) 

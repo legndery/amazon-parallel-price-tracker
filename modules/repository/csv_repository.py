@@ -5,9 +5,9 @@ from config.directory_config import DIR_REPORTS
 from io import StringIO
 
 class CsvRepository(Repository):
-	def __init__(self, fields):
+	def __init__(self, fields:list):
 		super().__init__()
-		self.fields = fields
+		self.fields = [f['name'] for f in fields]
 
 	def get_last_product(self, product_id):
 		header_string = ','.join(self.fields)

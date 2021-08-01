@@ -5,5 +5,3 @@ class Repository:
     pass
   def append_product(self, product):
     pass
-  def up(self):
-    pass

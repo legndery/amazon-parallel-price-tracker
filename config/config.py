@@ -3,8 +3,36 @@ from selenium import webdriver
 CURRENCY = '₹'
 BASE_URL = "http://www.amazon.in/"
 
-REPORT_FIELDS = ['asin', 'url', 'title', 'seller', 'merchant', 'price', 'date']
-
+REPORT_FIELDS = [
+    {
+        "name": "asin",
+        "type": "string"
+    },
+    {
+        "name": "url",
+        "type": "string"
+    },
+    {
+        "name": "title",
+        "type": "string"
+    },
+    {
+        "name": "seller",
+        "type": "string"
+    },
+    {
+        "name": "merchant",
+        "type": "string"
+    },
+    {
+        "name": "price",
+        "type": "float"
+    },
+    {
+        "name": "date",
+        "type": "date"
+    }
+]
 def get_chrome_web_driver(options):
     return webdriver.Chrome("./chromedriver.exe", chrome_options=options)
 

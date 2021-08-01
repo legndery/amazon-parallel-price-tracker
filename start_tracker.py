@@ -13,10 +13,13 @@ from modules.report_generator_abstract import ReportGenerator
 from modules.amazon_api import AmazonAPI
 from modules.notification_manager import NotificationManager
 
+from modules.repository.sql_repository import SqlRepository, Base
 
 executor = ProcessPoolExecutor(10)
 loop = asyncio.get_event_loop()
 csv_repository = CsvRepository(REPORT_FIELDS)
+
+sql_repository = SqlRepository(Base)
 
 def manual_cron(interval_time_in_sec, callback):
     starttime = time.time()
@@ -29,7 +32,7 @@ def manual_cron(interval_time_in_sec, callback):
 def worker(links):
     am = AmazonAPI(BASE_URL, CURRENCY, [links])
     data = am.run()
-    ReportGenerator(csv_repository, data).generate(NotificationManager.FirePriceNotification)
+    ReportGenerator(sql_repository, data).generate(NotificationManager.FirePriceNotification)
 
 def main():
     product_links = FileManager().fetch_product_links(DIR_INPUT)

@@ -23,5 +23,7 @@ secrets.json
 .DS_Store
 
 __pycache__/
-reports
+reports/*.csv
+reports/csv/*.csv
+reports/plots/*.png
 amazon_venv

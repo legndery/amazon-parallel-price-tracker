@@ -40,4 +40,3 @@ class ReportGenerator:
             if prev_val != y:
                 ax.text(x-0.5, y+1, y)  
                 prev_val = y
-        ax.text(x-0.5, y+1, y) 

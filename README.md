@@ -17,9 +17,14 @@ pip install -r requirements.txt
 ```
 ### Put your links in inputs/links.txt
 ```
-echo 'https://www.amazon.in/dp/B07YFF3JCN/' >> inputes/links.txt
+echo 'https://www.amazon.in/dp/B07YFF3JCN/' >> inputs/links.txt
 ```
 ## Running Script
 ```buildoutcfg
 python start_tracker.py
 ```
+
+## Screenshot:
+- Charting support using matplotlib
+
+![Alt text](/screens/B073GF2CL6.png?raw=true "Price change")

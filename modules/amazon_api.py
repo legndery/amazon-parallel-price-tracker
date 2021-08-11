@@ -92,7 +92,15 @@ class AmazonAPI:
             price = self.driver.find_element_by_id('priceblock_ourprice').text
             price = self.convert_price(price)
         except TimeoutException:
-                print("Timed out waiting for page to load")
+                print("Timed out waiting for page to load, ourprice")
+                print("Checking dealprice")
+                try:
+                    element_present = EC.presence_of_element_located((By.ID, 'priceblock_dealprice'))
+                    WebDriverWait(self.driver, 5).until(element_present)
+                    price = self.driver.find_element_by_id('priceblock_dealprice').text
+                    price = self.convert_price(price)
+                except TimeoutException:
+                        print("Timed out waiting for page to load")
         except NoSuchElementException:
             try:
                 availability = self.driver.find_element_by_id('availability').text

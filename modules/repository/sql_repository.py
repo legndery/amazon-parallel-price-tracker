@@ -48,8 +48,10 @@ class SqlRepository(Repository):
       print(e)
   def get_price(self, product_id):
     try:
-      price_list = self.session.query(Report).filter(Report.asin == product_id).order_by(Report.date.asc()).all()
-      return [p.__dict__['price'] for p in price_list]
+      price_list = self.session.query(Report).filter(Report.asin == product_id).order_by(Report.date.desc()).limit(100).all()
+      price_list_arr = [p.__dict__['price'] for p in price_list]
+      price_list_arr.reverse()
+      return price_list_arr
     except Exception as e:
       print(e)
 

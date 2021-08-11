@@ -11,7 +11,7 @@ Make sure to download correct chromedriver - https://chromedriver.chromium.org/d
 
 ### Setup Python Virtual Environment
 ```buildoutcfg
-python3 -m venv venv
+python3 -m venv venv # or virtualenv
 . venv/bin/activate
 pip install -r requirements.txt
 ```

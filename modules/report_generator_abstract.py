@@ -29,11 +29,17 @@ class ReportGenerator:
         ax.plot(xplots, yplots)
         ax.set_title('\n'.join(wrap(product['title'])))
         ax.set_ylabel('Price in Rs')
-        ymin, ymax = ax.get_ylim()
-        ax.set_yticks(np.arange(np.floor(ymin), np.floor(ymax), 25))   
         self.label_point(xplots, yplots, ax)
         ax.grid(True)
+        width = len(xplots)/5
+        if width > 4:
+            ymin, ymax = ax.get_ylim()
+            ax.set_yticks(np.arange(np.floor(ymin), np.floor(ymax), 25))
+        else:
+            width = 4
+        fig.set_figwidth(width)
         plt.savefig(f"{DIR_REPORTS_GRAPH}/{product['asin']}.png")
+        plt.close('all')
     def label_point(self, xplots, yplots, ax):
         prev_val = None
         for x,y in zip(xplots, yplots):
